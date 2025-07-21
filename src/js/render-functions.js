@@ -1,12 +1,15 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
+import { showLoader, hideLoader } from "./loader";
+
 let lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
 });
   
 export function renderImages(images, gallery) {
+    showLoader();
     const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
       return `
         <li class="gallery-item">
@@ -24,6 +27,7 @@ export function renderImages(images, gallery) {
     }).join('');
   
     gallery.insertAdjacentHTML('beforeend', markup);
+    hideLoader();
     lightbox.refresh();
   }
   
